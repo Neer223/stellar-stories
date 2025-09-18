@@ -23,38 +23,38 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
   const [gameScore, setGameScore] = useState(0);
 
   const characters = [
-    { 
-      id: 1, 
-      name: "Surya", 
-      icon: "☀️", 
+    {
+      id: 1,
+      name: "Surya",
+      icon: "☀️",
       fact: "I'm the source of all solar flares! My magnetic field lines can stretch millions of miles into space.",
       color: "text-orange-600"
     },
-    { 
-      id: 2, 
-      name: "Captain Arjun", 
-      icon: "✈️", 
+    {
+      id: 2,
+      name: "Captain Arjun",
+      icon: "✈️",
       fact: "As a pilot, I need to know about solar storms because they can disrupt GPS and radio communications at high altitudes.",
       color: "text-blue-600"
     },
-    { 
-      id: 3, 
-      name: "Farmer Vijay", 
-      icon: "🌾", 
+    {
+      id: 3,
+      name: "Farmer Vijay",
+      icon: "🌾",
       fact: "Solar storms affect my GPS-guided tractors and can interfere with precision farming techniques.",
       color: "text-green-600"
     },
-    { 
-      id: 4, 
-      name: "Grid Operator Kartik", 
-      icon: "⚡", 
+    {
+      id: 4,
+      name: "Grid Operator Kartik",
+      icon: "⚡",
       fact: "I manage the power grid, and solar storms can cause massive blackouts by overloading transformers.",
       color: "text-yellow-700"
     },
-    { 
-      id: 5, 
-      name: "Astronaut Sara", 
-      icon: "🚀", 
+    {
+      id: 5,
+      name: "Astronaut Sara",
+      icon: "🚀",
       fact: "In space, I'm exposed to dangerous radiation during solar storms and need to take shelter in shielded areas.",
       color: "text-purple-600"
     }
@@ -99,7 +99,7 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
             Discover how space weather affects life on Earth through the eyes of different characters
           </p>
         </div>
-        
+
         {/* Story Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
           {stories.map((story) => (
@@ -114,15 +114,15 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              
+
               <h3 className="font-work-sans font-bold text-2xl mb-3 text-gray-900">
                 {story.title}
               </h3>
-              
+
               <p className="font-work-sans text-base mb-6 text-gray-700 font-medium">
                 {story.character}
               </p>
-              
+
               <Button
                 onClick={() => onStorySelect(story.id)}
                 className="w-full bg-gray-800 hover:bg-gray-900 text-white font-work-sans font-bold py-3 rounded-2xl text-base transition-colors"
@@ -151,28 +151,28 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
               Understanding Space Weather
             </h3>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8 mb-10">
             <div className="bg-white/80 rounded-2xl p-6 border border-indigo-200">
               <h4 className="font-work-sans font-bold text-xl mb-3 text-gray-800">What Is It?</h4>
               <p className="font-work-sans text-gray-700 leading-relaxed">
-                Space weather refers to dynamic conditions in Earth's magnetosphere, ionosphere, and thermosphere 
+                Space weather refers to dynamic conditions in Earth's magnetosphere, ionosphere, and thermosphere
                 caused by solar wind and energetic particles from the Sun.
               </p>
             </div>
-            
+
             <div className="bg-white/80 rounded-2xl p-6 border border-purple-200">
               <h4 className="font-work-sans font-bold text-xl mb-3 text-gray-800">How It Works</h4>
               <p className="font-work-sans text-gray-700 leading-relaxed">
-                Solar flares and coronal mass ejections travel through space at millions of miles per hour, 
+                Solar flares and coronal mass ejections travel through space at millions of miles per hour,
                 creating geomagnetic storms when they interact with Earth's magnetic field.
               </p>
             </div>
-            
+
             <div className="bg-white/80 rounded-2xl p-6 border border-blue-200">
               <h4 className="font-work-sans font-bold text-xl mb-3 text-gray-800">Real Impact</h4>
               <p className="font-work-sans text-gray-700 leading-relaxed">
-                These storms can disrupt GPS, satellite communications, power grids, and pose radiation 
+                These storms can disrupt GPS, satellite communications, power grids, and pose radiation
                 hazards to astronauts and airline passengers at high altitudes.
               </p>
             </div>
@@ -180,26 +180,41 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
 
           <div className="text-center">
             <p className="font-work-sans text-lg text-gray-700 mb-6 leading-relaxed max-w-3xl mx-auto">
-              Understanding space weather is crucial for protecting our technology and preparing for impacts 
+              Understanding space weather is crucial for protecting our technology and preparing for impacts
               in our increasingly connected world. Join our characters as they experience these cosmic events firsthand!
             </p>
-            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
+                asChild
                 variant="outline"
                 className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white font-work-sans font-bold px-8 py-3 rounded-2xl transition-colors"
               >
-                <ExternalLink className="w-5 h-5 mr-2" />
-                NASA Space Weather
+                <a
+                  href="https://science.nasa.gov/heliophysics/focus-areas/space-weather/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  NASA Space Weather
+                </a>
               </Button>
+
               <Button
+                asChild
                 variant="outline"
                 className="border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-600 hover:text-white font-work-sans font-bold px-8 py-3 rounded-2xl transition-colors"
               >
-                <ExternalLink className="w-5 h-5 mr-2" />
-                NOAA Space Weather
+                <a
+                  href="https://www.swpc.noaa.gov/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  NOAA Space Weather
+                </a>
               </Button>
             </div>
+
           </div>
         </div>
 
@@ -213,7 +228,7 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
               Each character experiences space weather in their own unique way
             </p>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
             {characters.map((character) => (
               <button
@@ -230,7 +245,7 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
               </button>
             ))}
           </div>
-          
+
           {/* Enhanced Character Fact Bubble */}
           {selectedCharacter && (
             <div className="bg-gradient-to-r from-purple-100 to-blue-100 rounded-3xl p-8 border-2 border-purple-200 shadow-xl">
@@ -290,7 +305,7 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
                   <span className="text-2xl">🏆</span>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 {/* Draggable Items */}
                 <div className="bg-white/80 rounded-2xl p-6 border border-blue-200">
@@ -305,11 +320,10 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
                       >
                         <div className="flex justify-between items-center">
                           <span className="font-work-sans font-bold text-gray-800">{item.name}</span>
-                          <span className={`px-3 py-1 rounded-full text-sm font-work-sans font-medium ${
-                            item.impact === 'High' ? 'bg-red-100 text-red-700' :
-                            item.impact === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
-                            'bg-green-100 text-green-700'
-                          }`}>
+                          <span className={`px-3 py-1 rounded-full text-sm font-work-sans font-medium ${item.impact === 'High' ? 'bg-red-100 text-red-700' :
+                              item.impact === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-green-100 text-green-700'
+                            }`}>
                             Impact: {item.impact}
                           </span>
                         </div>
@@ -340,7 +354,7 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="text-center mt-8">
                 <p className="text-gray-600 font-work-sans">
                   💡 Hint: Think about who relies heavily on technology or works in exposed environments
