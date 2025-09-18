@@ -1,0 +1,268 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Stellar Stories Design System - Vibrant Space Theme
+All colors MUST be HSL for young minds fascination with space.
+*/
+
+@layer base {
+  :root {
+    /* Space Background System */
+    --background: 197 71% 73%;
+    --foreground: 240 100% 95%;
+
+    /* Cosmic Cards */
+    --card: 235 25% 12%;
+    --card-foreground: 240 100% 95%;
+
+    --popover: 235 25% 12%;
+    --popover-foreground: 240 100% 95%;
+
+    /* Primary Solar Flare Orange */
+    --primary: 25 100% 60%;
+    --primary-foreground: 225 20% 8%;
+
+    /* Secondary Aurora Purple */
+    --secondary: 270 100% 75%;
+    --secondary-foreground: 225 20% 8%;
+
+    /* Muted Cosmic Dust */
+    --muted: 235 20% 20%;
+    --muted-foreground: 240 50% 70%;
+
+    /* Accent Electric Blue */
+    --accent: 200 100% 65%;
+    --accent-foreground: 225 20% 8%;
+
+    /* Destructive Red Giant */
+    --destructive: 0 100% 65%;
+    --destructive-foreground: 240 100% 95%;
+
+    /* UI Elements */
+    --border: 235 30% 25%;
+    --input: 235 30% 18%;
+    --ring: 25 100% 60%;
+
+    --radius: 1rem;
+
+    /* Custom Space Colors */
+    --cosmic-purple: 270 100% 75%;
+    --solar-orange: 25 100% 60%; 
+    --aurora-green: 120 100% 70%;
+    --nebula-pink: 320 100% 75%;
+    --stellar-blue: 200 100% 65%;
+    --plasma-yellow: 55 100% 65%;
+
+    /* Gradients */
+    --gradient-solar: linear-gradient(135deg, hsl(25 100% 60%), hsl(55 100% 65%));
+    --gradient-aurora: linear-gradient(135deg, hsl(270 100% 75%), hsl(200 100% 65%));
+    --gradient-nebula: linear-gradient(135deg, hsl(320 100% 75%), hsl(270 100% 75%));
+    --gradient-cosmic: linear-gradient(135deg, hsl(225 20% 8%), hsl(235 25% 12%));
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-work-sans;
+  }
+}
+
+@layer components {
+  /* Stellar Animations */
+  .stellar-glow {
+    animation: stellar-pulse 3s ease-in-out infinite;
+  }
+  
+  .cosmic-float {
+    animation: cosmic-float 6s ease-in-out infinite;
+  }
+
+  /* Story Section Styles */
+  .story-section {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-screen px-6 py-12;
+  }
+
+  .story-content {
+    @apply space-y-6;
+  }
+
+  .story-title {
+    font-family: 'Work Sans', sans-serif;
+    @apply text-4xl font-medium leading-tight;
+  }
+
+  .story-text {
+    @apply text-lg leading-relaxed opacity-90;
+  }
+
+  /* Interactive Hotspots */
+  .hotspot {
+    @apply relative inline-block cursor-pointer;
+    transition: var(--transition-smooth);
+  }
+
+  .hotspot:hover {
+    @apply scale-110;
+  }
+
+  /* Gradient Backgrounds */
+  .bg-solar {
+    background: var(--gradient-solar);
+  }
+
+  .bg-aurora {
+    background: var(--gradient-aurora);
+  }
+
+  .bg-nebula {
+    background: var(--gradient-nebula);
+  }
+
+  .bg-cosmic {
+    background: var(--gradient-cosmic);
+  }
+}
+
+@layer utilities {
+  /* Font System */
+  .font-work-sans {
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  /* Custom Space Colors */
+  .text-cosmic-purple {
+    color: hsl(var(--cosmic-purple));
+  }
+  
+  .text-solar-orange {
+    color: hsl(var(--solar-orange));
+  }
+  
+  .text-aurora-green {
+    color: hsl(var(--aurora-green));
+  }
+  
+  .text-nebula-pink {
+    color: hsl(var(--nebula-pink));
+  }
+  
+  .text-stellar-blue {
+    color: hsl(var(--stellar-blue));
+  }
+  
+  .text-plasma-yellow {
+    color: hsl(var(--plasma-yellow));
+  }
+
+  /* Background Utilities */
+  .bg-cosmic-purple {
+    background-color: hsl(var(--cosmic-purple));
+  }
+  
+  .bg-solar-orange {
+    background-color: hsl(var(--solar-orange));
+  }
+  
+  .bg-aurora-green {
+    background-color: hsl(var(--aurora-green));
+  }
+  
+  .bg-nebula-pink {
+    background-color: hsl(var(--nebula-pink));
+  }
+  
+  .bg-stellar-blue {
+    background-color: hsl(var(--stellar-blue));
+  }
+  
+  .bg-plasma-yellow {
+    background-color: hsl(var(--plasma-yellow));
+  }
+}
+
+/* Keyframe Animations */
+@keyframes stellar-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes cosmic-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
