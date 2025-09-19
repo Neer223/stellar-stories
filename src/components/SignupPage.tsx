@@ -1,9 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { X, Mail, Phone, Eye, EyeOff, User } from "lucide-react";
 
-const SignupPage = ({ onClose, onSwitchToLogin }) => {
-  const [signupMethod, setSignupMethod] = useState("email"); // 'email', 'phone', 'google'
+type SignupPageProps = {
+  onClose?: () => void;
+  onSwitchToLogin?: () => void;
+};
+
+const SignupPage: React.FC<SignupPageProps> = ({
+  onClose = () => { },
+  onSwitchToLogin = () => { },
+}) => {
+  const [signupMethod, setSignupMethod] = useState("email");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,14 +32,14 @@ const SignupPage = ({ onClose, onSwitchToLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords don't match!");
       return;
     }
 
     setIsLoading(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       console.log("Signup attempt:", { method: signupMethod, data: formData });
@@ -73,22 +81,20 @@ const SignupPage = ({ onClose, onSwitchToLogin }) => {
           <div className="flex mb-6 bg-gray-100 rounded-2xl p-1">
             <button
               onClick={() => setSignupMethod("email")}
-              className={`flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all ${
-                signupMethod === "email"
+              className={`flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all ${signupMethod === "email"
                   ? "bg-white text-orange-600 shadow-sm"
                   : "text-gray-600 hover:text-gray-800"
-              }`}
+                }`}
             >
               <Mail className="w-4 h-4 inline mr-2" />
               Email
             </button>
             <button
               onClick={() => setSignupMethod("phone")}
-              className={`flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all ${
-                signupMethod === "phone"
+              className={`flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all ${signupMethod === "phone"
                   ? "bg-white text-orange-600 shadow-sm"
                   : "text-gray-600 hover:text-gray-800"
-              }`}
+                }`}
             >
               <Phone className="w-4 h-4 inline mr-2" />
               Phone
@@ -152,8 +158,8 @@ const SignupPage = ({ onClose, onSwitchToLogin }) => {
                   value={formData[signupMethod]}
                   onChange={handleInputChange}
                   placeholder={
-                    signupMethod === "email" 
-                      ? "Enter your email" 
+                    signupMethod === "email"
+                      ? "Enter your email"
                       : "Enter your phone number"
                   }
                   className="w-full p-3 pl-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
