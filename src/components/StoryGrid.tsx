@@ -26,21 +26,21 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
   const characters = [
     { 
       id: 1, 
-      name: "Surya", 
+      name: "Sol", 
       icon: "☀️", 
       fact: "I'm the source of all solar flares! My magnetic field lines can stretch millions of miles into space.",
       color: "text-orange-600"
     },
     { 
       id: 2, 
-      name: "Captain Arjun", 
+      name: "Captain Priya", 
       icon: "✈️", 
       fact: "As a pilot, I need to know about solar storms because they can disrupt GPS and radio communications at high altitudes.",
       color: "text-blue-600"
     },
     { 
       id: 3, 
-      name: "Farmer Vijay", 
+      name: "Farmer Ravi", 
       icon: "🌾", 
       fact: "Solar storms affect my GPS-guided tractors and can interfere with precision farming techniques.",
       color: "text-green-600"
@@ -54,7 +54,7 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
     },
     { 
       id: 5, 
-      name: "Astronaut Sara", 
+      name: "Astronaut Zara", 
       icon: "🚀", 
       fact: "In space, I'm exposed to dangerous radiation during solar storms and need to take shelter in shielded areas.",
       color: "text-purple-600"
@@ -62,11 +62,11 @@ const StoryGrid = ({ stories, onStorySelect }: StoryGridProps) => {
   ];
 
   const miniGameItems = [
-    { id: 1, name: "Astronaut", impact: "High", correct: true },
-    { id: 2, name: "Farmer", impact: "Medium", correct: false },
-    { id: 3, name: "Power Grid", impact: "High", correct: true },
-    { id: 4, name: "Pilot", impact: "Medium", correct: false },
-    { id: 5, name: "City Dweller", impact: "Low", correct: false }
+    { id: 1, name: "Astronaut", impact: "???", correct: true },
+    { id: 2, name: "Farmer", impact: "???", correct: false },
+    { id: 3, name: "Power Grid", impact: "???", correct: true },
+    { id: 4, name: "Pilot", impact: "???", correct: false },
+    { id: 5, name: "City Dweller", impact: "???", correct: false }
   ];
 
   const handleCharacterClick = (character) => {
