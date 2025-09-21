@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import StoryGrid from "@/components/StoryGrid";
@@ -147,6 +147,409 @@ const stories = [
   }
 ];
 
+// Solar Flare Simulation Component
+const SolarFlareSimulation = () => {
+  const [isRunning, setIsRunning] = useState(false);
+  const [particles, setParticles] = useState([]);
+  const [showLabels, setShowLabels] = useState(true);
+  const animationRef = useRef();
+  const containerRef = useRef();
+
+  const createParticle = () => ({
+    id: Math.random(),
+    x: 80, // Start from sun position
+    y: Math.random() * 200 + 150, // Random Y around sun center
+    speed: Math.random() * 2 + 1,
+    size: Math.random() * 3 + 2,
+    color: Math.random() > 0.5 ? '#f97316' : '#eab308', // Orange or yellow
+    opacity: 1,
+    deflected: false,
+    deflectionAngle: 0
+  });
+
+  const animateParticles = () => {
+    setParticles(prevParticles => {
+      return prevParticles
+        .map(particle => {
+          let newParticle = { ...particle };
+          
+          // Check if particle is approaching magnetosphere (around x=570)
+          if (!newParticle.deflected && newParticle.x > 570 && newParticle.x < 730) {
+            const earthCenterY = 200;
+            const distanceFromEarth = Math.sqrt(
+              Math.pow(newParticle.x - 650, 2) + Math.pow(newParticle.y - earthCenterY, 2)
+            );
+            
+            // If within magnetosphere range (about 80 units from Earth)
+            if (distanceFromEarth < 80) {
+              // 85% of particles get deflected
+              if (Math.random() < 0.85) {
+                newParticle.deflected = true;
+                // Calculate deflection based on magnetic field lines
+                const angleToEarth = Math.atan2(newParticle.y - earthCenterY, newParticle.x - 650);
+                newParticle.deflectionAngle = angleToEarth + (Math.random() - 0.5) * Math.PI;
+                newParticle.color = '#10b981'; // Change color to green when deflected
+              }
+            }
+          }
+          
+          if (newParticle.deflected) {
+            // Move in deflection direction
+            newParticle.x += Math.cos(newParticle.deflectionAngle) * newParticle.speed;
+            newParticle.y += Math.sin(newParticle.deflectionAngle) * newParticle.speed;
+            newParticle.opacity = Math.max(0, newParticle.opacity - 0.015);
+          } else {
+            // Normal forward movement
+            newParticle.x += newParticle.speed;
+            if (newParticle.x > 600) {
+              newParticle.opacity = Math.max(0, newParticle.opacity - 0.02);
+            }
+          }
+          
+          return newParticle;
+        })
+        .filter(particle => 
+          particle.opacity > 0 && 
+          particle.x > -50 && particle.x < 850 && 
+          particle.y > -50 && particle.y < 450
+        );
+    });
+  };
+
+  useEffect(() => {
+    if (isRunning) {
+      // Add new particles periodically
+      const particleInterval = setInterval(() => {
+        if (particles.length < 50) {
+          setParticles(prev => [...prev, createParticle()]);
+        }
+      }, 100);
+
+      // Animate existing particles
+      const animate = () => {
+        animateParticles();
+        animationRef.current = requestAnimationFrame(animate);
+      };
+      animate();
+
+      return () => {
+        clearInterval(particleInterval);
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+        }
+      };
+    } else {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    }
+  }, [isRunning, particles.length]);
+
+  const startSimulation = () => {
+    setIsRunning(true);
+    setParticles([]);
+  };
+
+  const stopSimulation = () => {
+    setIsRunning(false);
+    setParticles([]);
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+  };
+
+  return (
+    <div className="w-full">
+      {/* Control Buttons */}
+      <div className="flex justify-center gap-4 mb-6">
+        <button
+          onClick={startSimulation}
+          disabled={isRunning}
+          className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+            isRunning 
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+              : 'bg-solar-orange text-white hover:bg-solar-orange/80 shadow-lg hover:shadow-xl'
+          }`}
+        >
+          Start Simulation
+        </button>
+        <button
+          onClick={stopSimulation}
+          disabled={!isRunning}
+          className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+            !isRunning 
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+              : 'bg-red-500 text-white hover:bg-red-600 shadow-lg hover:shadow-xl'
+          }`}
+        >
+          Stop Simulation
+        </button>
+      </div>
+
+      {/* Simulation Canvas */}
+      <div 
+        ref={containerRef}
+        className="relative aspect-video bg-gradient-to-r from-black via-purple-900/20 to-blue-900/20 rounded-2xl overflow-hidden border-2 border-gray-300"
+        style={{ minHeight: '400px' }}
+      >
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 800 400"
+          className="absolute inset-0"
+        >
+          {/* Background gradient */}
+          <defs>
+            <radialGradient id="sunGradient" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#fbbf24" />
+              <stop offset="70%" stopColor="#f97316" />
+              <stop offset="100%" stopColor="#ea580c" />
+            </radialGradient>
+            <radialGradient id="earthGradient" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="70%" stopColor="#1d4ed8" />
+              <stop offset="100%" stopColor="#1e3a8a" />
+            </radialGradient>
+            <radialGradient id="magnetosphereGradient" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="rgba(16, 185, 129, 0.1)" />
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.3)" />
+              <stop offset="100%" stopColor="rgba(16, 185, 129, 0.6)" />
+            </radialGradient>
+          </defs>
+
+          {/* Sun */}
+          <circle 
+            cx="80" 
+            cy="200" 
+            r="40" 
+            fill="url(#sunGradient)"
+            className="drop-shadow-lg"
+          >
+            <animate
+              attributeName="r"
+              values="38;42;38"
+              dur="2s"
+              repeatCount="indefinite"
+            />
+          </circle>
+
+          {/* Solar flare burst effect */}
+          {isRunning && (
+            <>
+              <circle cx="80" cy="200" r="50" fill="rgba(251, 191, 36, 0.3)" opacity="0.8">
+                <animate
+                  attributeName="r"
+                  values="40;60;40"
+                  dur="1s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle cx="80" cy="200" r="35" fill="rgba(249, 115, 22, 0.5)" opacity="0.6">
+                <animate
+                  attributeName="r"
+                  values="30;45;30"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </>
+          )}
+
+          {/* Earth's Magnetosphere - Enhanced with field lines */}
+          <ellipse 
+            cx="650" 
+            cy="200" 
+            rx="80" 
+            ry="60" 
+            fill="url(#magnetosphereGradient)"
+            stroke="rgba(16, 185, 129, 0.8)"
+            strokeWidth="2"
+            opacity="0.7"
+          />
+          
+          {/* Magnetic field lines */}
+          <g stroke="rgba(16, 185, 129, 0.6)" strokeWidth="2" fill="none">
+            <path d="M 570 200 Q 620 180 650 200 Q 680 220 730 200" opacity="0.8"/>
+            <path d="M 575 180 Q 620 160 650 180 Q 680 200 725 180" opacity="0.6"/>
+            <path d="M 575 220 Q 620 240 650 220 Q 680 200 725 220" opacity="0.6"/>
+            <path d="M 580 160 Q 625 140 650 160 Q 675 180 720 160" opacity="0.4"/>
+            <path d="M 580 240 Q 625 260 650 240 Q 675 220 720 240" opacity="0.4"/>
+          </g>
+
+          {/* Earth */}
+          <circle 
+            cx="650" 
+            cy="200" 
+            r="25" 
+            fill="url(#earthGradient)"
+            className="drop-shadow-lg"
+          />
+
+          {/* Earth continents (simplified) */}
+          <path
+            d="M 635 190 Q 645 185 655 190 Q 665 195 655 205 Q 645 210 635 205 Z"
+            fill="rgba(34, 197, 94, 0.8)"
+          />
+          <path
+            d="M 640 195 Q 650 192 660 195 Q 655 202 640 202 Z"
+            fill="rgba(34, 197, 94, 0.8)"
+          />
+
+          {/* Animated Particles */}
+          {particles.map(particle => (
+            <circle
+              key={particle.id}
+              cx={particle.x}
+              cy={particle.y}
+              r={particle.size}
+              fill={particle.color}
+              opacity={particle.opacity}
+              className="drop-shadow-sm"
+            />
+          ))}
+
+          {/* Solar Wind Lines */}
+          <g stroke="rgba(251, 191, 36, 0.4)" strokeWidth="1" fill="none">
+            <path d="M 120 180 Q 400 170 580 190" opacity="0.6">
+              {isRunning && (
+                <animate
+                  attributeName="opacity"
+                  values="0.3;0.8;0.3"
+                  dur="2s"
+                  repeatCount="indefinite"
+                />
+              )}
+            </path>
+            <path d="M 120 200 Q 400 200 580 200" opacity="0.6">
+              {isRunning && (
+                <animate
+                  attributeName="opacity"
+                  values="0.6;1;0.6"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                />
+              )}
+            </path>
+            <path d="M 120 220 Q 400 230 580 210" opacity="0.6">
+              {isRunning && (
+                <animate
+                  attributeName="opacity"
+                  values="0.3;0.8;0.3"
+                  dur="2.2s"
+                  repeatCount="indefinite"
+                />
+              )}
+            </path>
+          </g>
+
+          {/* Labels with arrows */}
+          {showLabels && (
+            <g>
+              {/* Sun Label */}
+              <g transform="translate(80, 120)">
+                <line x1="0" y1="0" x2="0" y2="40" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
+                <rect x="-25" y="-25" width="50" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
+                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Sun</text>
+              </g>
+
+              {/* Solar Flare Label */}
+              <g transform="translate(200, 120)">
+                <line x1="0" y1="0" x2="-80" y2="60" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
+                <rect x="-35" y="-25" width="70" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
+                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Solar Flare</text>
+              </g>
+
+              {/* Solar Wind Label */}
+              <g transform="translate(400, 100)">
+                <line x1="0" y1="0" x2="0" y2="80" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
+                <rect x="-35" y="-25" width="70" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
+                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Solar Wind</text>
+              </g>
+
+              {/* Magnetosphere Label */}
+              <g transform="translate(650, 120)">
+                <line x1="0" y1="0" x2="0" y2="40" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
+                <rect x="-45" y="-25" width="90" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
+                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Magnetosphere</text>
+              </g>
+
+              {/* Earth Label */}
+              <g transform="translate(650, 320)">
+                <line x1="0" y1="0" x2="0" y2="-70" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
+                <rect x="-25" y="5" width="50" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
+                <text x="0" y="20" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Earth</text>
+              </g>
+
+              {/* Arrow marker definition */}
+              <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                        refX="9" refY="3.5" orient="auto">
+                  <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+                </marker>
+              </defs>
+            </g>
+          )}
+        </svg>
+
+        {/* Status overlay */}
+        <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-2 rounded-lg">
+          <p className="text-sm font-semibold">
+            Status: {isRunning ? (
+              <span className="text-green-400">Simulation Running</span>
+            ) : (
+              <span className="text-gray-300">Simulation Stopped</span>
+            )}
+          </p>
+          <p className="text-xs text-gray-300">
+            Active Particles: {particles.length}
+          </p>
+          <p className="text-xs text-gray-300">
+            Deflected: {particles.filter(p => p.deflected).length}
+          </p>
+        </div>
+
+        {/* Legend */}
+        <div className="absolute bottom-4 right-4 bg-black/50 text-white p-3 rounded-lg text-xs">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+              <span>Solar Particles</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-green-400 rounded-full opacity-60"></div>
+              <span>Deflected Particles</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+              <span>Solar Flare</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <span>Earth</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Educational Information */}
+      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+        <h4 className="font-semibold text-blue-900 mb-2">What's Happening?</h4>
+        <p className="text-blue-800 text-sm mb-2">
+          When the Sun releases a solar flare, high-energy particles travel through space as solar wind. 
+          Earth's magnetosphere (our magnetic shield) deflects about 85% of these particles, protecting us from 
+          harmful radiation. Watch the different outcomes:
+        </p>
+        <ul className="text-blue-800 text-sm space-y-1 ml-4">
+          <li><span className="text-yellow-600 font-semibold">Yellow/Orange:</span> Solar particles traveling from the Sun</li>
+          <li><span className="text-green-600 font-semibold">Green:</span> Particles deflected away by Earth's magnetic field</li>
+        </ul>
+        <p className="text-blue-800 text-sm mt-2">
+          The remaining particles that aren't deflected continue toward Earth and create beautiful auroras!
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<"grid" | "story">("grid");
@@ -179,7 +582,7 @@ const Index = () => {
     return (
       <StoryPage
         story={currentStory}
-        currentIndex={currentStoryIndex}
+        currentIndex={currentStoryIndex >= 0 ? currentStoryIndex : undefined}
         totalStories={stories.length}
         onNext={currentStoryIndex < stories.length - 1 ? handleNext : undefined}
         onPrevious={currentStoryIndex > 0 ? handlePrevious : undefined}
@@ -190,7 +593,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      <Navigation onStorySelect={handleStorySelect} />
 
       <main className="pt-20">
         <HeroSection />
@@ -208,21 +611,7 @@ const Index = () => {
                 Experience how solar particles interact with Earth's magnetosphere in this simplified visualization.
               </p>
 
-              {/* Placeholder for future simulation */}
-              <div className="aspect-video bg-gradient-to-r from-solar-orange/30 via-cosmic-purple/30 to-aurora-green/30 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-background/20" />
-                <div className="relative z-10 text-center">
-                  <div className="stellar-glow">
-                    <div className="w-24 h-24 bg-solar-orange/50 rounded-full mx-auto mb-4 cosmic-float" />
-                  </div>
-                  <p className="font-bold text-2xl text-gray-700">
-                    Interactive Simulation Coming Soon!
-                  </p>
-                  <p className="text-gray-700 mt-2">
-                    Watch particles travel from Sun to Earth's protective magnetic field
-                  </p>
-                </div>
-              </div>
+              <SolarFlareSimulation />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -270,6 +659,48 @@ const Index = () => {
             This interactive storybook helps young minds understand the fascinating connection
             between our Sun and life on Earth through space weather.
           </p>
+
+          {/* Did You Know Section */}
+          <div className="mb-8">
+            <h4 className="font-bold text-xl mb-6 text-gray-700">
+              Did You Know?
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <div className="bg-solar-orange/10 rounded-2xl p-6 border border-solar-orange/20">
+                <div className="text-3xl mb-3">☀️</div>
+                <h5 className="font-semibold text-lg text-solar-orange mb-2">
+                  The Sun's 11-Year Cycle
+                </h5>
+                <p className="text-gray-700 text-sm">
+                  Our Sun goes through an 11-year cycle where it becomes more and less active. 
+                  During solar maximum, we see more solar flares and beautiful auroras on Earth!
+                </p>
+              </div>
+
+              <div className="bg-aurora-green/10 rounded-2xl p-6 border border-aurora-green/20">
+                <div className="text-3xl mb-3">🌌</div>
+                <h5 className="font-semibold text-lg text-aurora-green mb-2">
+                  Auroras on Other Planets
+                </h5>
+                <p className="text-gray-700 text-sm">
+                  Jupiter, Saturn, and even Mars have their own auroras! Jupiter's are 1,000 times 
+                  brighter than Earth's because of its super strong magnetic field.
+                </p>
+              </div>
+
+              <div className="bg-stellar-blue/10 rounded-2xl p-6 border border-stellar-blue/20">
+                <div className="text-3xl mb-3">🛰️</div>
+                <h5 className="font-semibold text-lg text-stellar-blue mb-2">
+                  Space Weather Forecasting
+                </h5>
+                <p className="text-gray-700 text-sm">
+                  Just like regular weather, scientists can predict space weather! They use special 
+                  satellites to warn astronauts and protect power grids from solar storms.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-wrap justify-center gap-4">
             <span className="px-4 py-2 bg-primary/30 text-primary rounded-full font-medium">
               Solar Physics

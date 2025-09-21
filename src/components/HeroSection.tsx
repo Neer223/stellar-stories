@@ -1,6 +1,232 @@
 import React, { useState } from 'react';
 import { Play, BookOpen, Zap, ArrowLeft, Sparkles } from "lucide-react";
 import sunEarthJourney from "@/assets/sun-earth-journey.jpg";
+
+// Learn More Page Component
+const LearnMorePage = ({ onBack }) => {
+  return (
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Cosmic Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-900">
+        {/* Nebula effects */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+        
+        {/* Cosmic dust */}
+        {Array.from({ length: 50 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute w-0.5 h-0.5 bg-white rounded-full opacity-40"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animation: `twinkle ${3 + Math.random() * 4}s infinite ${Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="p-6">
+          <button 
+            onClick={onBack}
+            className="flex items-center gap-2 text-purple-300 hover:text-white transition-colors mb-4"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Back to Home
+          </button>
+        </div>
+
+        {/* Main Content */}
+        <div className="px-6 pb-12">
+          <div className="max-w-5xl mx-auto">
+            {/* Title */}
+            <div className="text-center mb-16">
+              <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 mb-6">
+                Understanding Space Weather
+              </h1>
+              <p className="text-xl md:text-2xl text-purple-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+                Discover the invisible forces that connect our Sun to Earth and affect our daily lives
+              </p>
+            </div>
+
+            {/* Content Sections */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+              {/* What is a Solar Flare? */}
+              <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 border border-orange-500/30 shadow-2xl">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-white rounded-full animate-pulse"></div>
+                  </div>
+                  <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+                    What is a Solar Flare?
+                  </h2>
+                </div>
+                <div className="text-purple-100 space-y-4 leading-relaxed">
+                  <p>
+                    A solar flare is like the Sun having a massive sneeze! It's a sudden release of electromagnetic energy from the Sun's surface that can be millions of times more powerful than an atomic bomb.
+                  </p>
+                  <p>
+                    These incredible bursts of energy happen when magnetic field lines on the Sun get tangled up and suddenly snap back into place, releasing enormous amounts of energy in just minutes.
+                  </p>
+                  <p>
+                    Solar flares shoot high-energy particles and radiation into space at incredible speeds - some particles can reach Earth in just 8 minutes!
+                  </p>
+                </div>
+              </div>
+
+              {/* What is Space Weather? */}
+              <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 border border-purple-500/30 shadow-2xl">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-white animate-pulse" />
+                  </div>
+                  <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+                    What is Space Weather?
+                  </h2>
+                </div>
+                <div className="text-purple-100 space-y-4 leading-relaxed">
+                  <p>
+                    Space weather is like regular weather, but instead of rain and wind, it's made of invisible particles and magnetic fields flowing through space from the Sun.
+                  </p>
+                  <p>
+                    Just as meteorologists predict if it will rain tomorrow, space weather scientists predict when solar storms might reach Earth and how they could affect our technology.
+                  </p>
+                  <p>
+                    This "weather" travels through the solar system and can create beautiful auroras, but it can also interfere with satellites, GPS systems, and power grids.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* How Solar Flares Affect Earth */}
+            <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-blue-500/30 shadow-2xl mb-12">
+              <div className="text-center mb-10">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-green-500 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full relative">
+                      <div className="w-4 h-4 bg-green-400 rounded-full absolute top-1 left-1"></div>
+                    </div>
+                  </div>
+                  <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-500">
+                    How Solar Flares Affect Earth's Atmosphere
+                  </h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div className="text-2xl">🛡️</div>
+                  </div>
+                  <h3 className="text-xl font-bold text-green-400 mb-2">Earth's Magnetic Shield</h3>
+                  <p className="text-purple-100 text-sm leading-relaxed">
+                    Our planet has an invisible magnetic field that acts like a protective bubble, deflecting most harmful solar particles away from us.
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div className="text-2xl">🌈</div>
+                  </div>
+                  <h3 className="text-xl font-bold text-pink-400 mb-2">Beautiful Auroras</h3>
+                  <p className="text-purple-100 text-sm leading-relaxed">
+                    When solar particles do get through, they collide with gases in our atmosphere, creating the stunning light shows we call auroras.
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div className="text-2xl">📡</div>
+                  </div>
+                  <h3 className="text-xl font-bold text-yellow-400 mb-2">Technology Effects</h3>
+                  <p className="text-purple-100 text-sm leading-relaxed">
+                    Solar storms can temporarily disrupt radio signals, GPS navigation, and even cause power outages in extreme cases.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-blue-900/30 rounded-2xl p-6 border border-blue-400/20">
+                <h3 className="text-2xl font-bold text-blue-400 mb-4 text-center">The Journey from Sun to Earth</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                  <div className="text-purple-100">
+                    <div className="text-3xl font-bold text-yellow-400 mb-2">8 minutes</div>
+                    <div className="text-sm">Light & X-rays reach Earth</div>
+                  </div>
+                  <div className="text-purple-100">
+                    <div className="text-3xl font-bold text-orange-400 mb-2">30 minutes</div>
+                    <div className="text-sm">High-energy particles arrive</div>
+                  </div>
+                  <div className="text-purple-100">
+                    <div className="text-3xl font-bold text-pink-400 mb-2">1-3 days</div>
+                    <div className="text-sm">Solar wind reaches Earth</div>
+                  </div>
+                  <div className="text-purple-100">
+                    <div className="text-3xl font-bold text-green-400 mb-2">Hours</div>
+                    <div className="text-sm">Auroras may be visible</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Fun Facts Section */}
+            <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-pink-500/30 shadow-2xl">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500 mb-4">
+                  Amazing Space Weather Facts
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto rounded-full"></div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-pink-900/20 rounded-2xl p-6 border border-pink-400/20">
+                  <h3 className="text-xl font-bold text-pink-400 mb-3">The Carrington Event</h3>
+                  <p className="text-purple-100 leading-relaxed">
+                    In 1859, the strongest solar storm in recorded history made telegraph wires spark and catch fire, but also made auroras visible as far south as the Caribbean!
+                  </p>
+                </div>
+
+                <div className="bg-purple-900/20 rounded-2xl p-6 border border-purple-400/20">
+                  <h3 className="text-xl font-bold text-purple-400 mb-3">Solar Cycle</h3>
+                  <p className="text-purple-100 leading-relaxed">
+                    The Sun follows an 11-year cycle of activity. During "solar maximum," we see more flares and storms, creating more spectacular auroras on Earth.
+                  </p>
+                </div>
+
+                <div className="bg-blue-900/20 rounded-2xl p-6 border border-blue-400/20">
+                  <h3 className="text-xl font-bold text-blue-400 mb-3">Speed of Solar Wind</h3>
+                  <p className="text-purple-100 leading-relaxed">
+                    Solar wind normally travels at about 400 km per second, but during storms it can speed up to over 1,000 km per second!
+                  </p>
+                </div>
+
+                <div className="bg-green-900/20 rounded-2xl p-6 border border-green-400/20">
+                  <h3 className="text-xl font-bold text-green-400 mb-3">Protection for Astronauts</h3>
+                  <p className="text-purple-100 leading-relaxed">
+                    The International Space Station has special shielded areas where astronauts can take shelter during major solar storms.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.2; }
+          50% { opacity: 1; }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 // Solar Flare Story Page Component
 const SolarFlareStoryPage = ({ onBack }) => {
   const [currentChapter, setCurrentChapter] = useState(0);
@@ -504,10 +730,16 @@ const Button = ({ children, size = "default", variant = "default", className = "
 // Main Hero Section Component
 const HeroSection = () => {
   const [showStory, setShowStory] = useState(false);
+  const [showLearnMore, setShowLearnMore] = useState(false);
 
   // If story is active, show the story page
   if (showStory) {
     return <SolarFlareStoryPage onBack={() => setShowStory(false)} />;
+  }
+
+  // If learn more is active, show the learn more page
+  if (showLearnMore) {
+    return <LearnMorePage onBack={() => setShowLearnMore(false)} />;
   }
 
   // Otherwise show the hero section
@@ -552,7 +784,7 @@ const HeroSection = () => {
           <Button 
             variant="outline"
             size="lg"
-            onClick={() => console.log('Learn More clicked')}
+            onClick={() => setShowLearnMore(true)}
             className="border-2 border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-black font-medium px-8 py-4 rounded-2xl text-lg transition-all duration-300"
           >
             <BookOpen className="w-6 h-6 mr-2" />

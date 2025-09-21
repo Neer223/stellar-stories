@@ -4,23 +4,22 @@ import { useState } from "react";
 import SignupPage from "@/components/SignupPage";
 import LoginPage from "@/components/LoginPage";
 
-const Navigation = ({ onPageChange, onCharacterSelect }) => {
+const Navigation = ({ onStorySelect }) => {
   const [isCharactersOpen, setIsCharactersOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
   const characters = [
-    { id: 1, name: "Surya - The Sun", page: 1, storyId: "surya-sun" },
-    { id: 2, name: "Farmer Vijay", page: 2, storyId: "farmer-vijay" },
-    { id: 3, name: "Captain Arjun", page: 2, storyId: "captain-arjun" },
-    { id: 4, name: "Astronaut Sara", page: 6, storyId: "astronaut-sara" },
-    { id: 5, name: "Grid Operator Kartik", page: 6, storyId: "grid-operator-kartik" },
-    { id: 6, name: "The Community", page: 6, storyId: "the-community" }
+    { id: 1, name: "Sol-The Sun", storyId: "solar-flare" },
+    { id: 2, name: "Farmer Ravi", storyId: "farmer" },
+    { id: 3, name: "Captain Priya", storyId: "pilot" },
+    { id: 4, name: "Astronaut Zara", storyId: "astronaut" },
+    { id: 5, name: "Grid Operator Kartik", storyId: "grid-operator" },
+    { id: 6, name: "The Community", storyId: "public" }
   ];
 
   const handleCharacterClick = (character) => {
-    onCharacterSelect?.(character.storyId, character.name);
-    onPageChange?.(character.page);
+    onStorySelect?.(character.storyId);
     setIsCharactersOpen(false);
   };
 
