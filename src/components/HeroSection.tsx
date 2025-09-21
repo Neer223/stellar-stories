@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Play, BookOpen, Zap, ArrowLeft, Sparkles } from "lucide-react";
 import sunEarthJourney from "@/assets/sun-earth-journey.jpg";
 
-// Learn More Page Component
+// Learn More Page Component - Made responsive
 const LearnMorePage = ({ onBack }) => {
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -10,13 +10,13 @@ const LearnMorePage = ({ onBack }) => {
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-900">
         {/* Nebula effects */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 sm:w-80 h-48 sm:h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-32 sm:w-64 h-32 sm:h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
         </div>
         
         {/* Cosmic dust */}
-        {Array.from({ length: 50 }, (_, i) => (
+        {Array.from({ length: window.innerWidth > 768 ? 50 : 25 }, (_, i) => (
           <div
             key={i}
             className="absolute w-0.5 h-0.5 bg-white rounded-full opacity-40"
@@ -32,42 +32,42 @@ const LearnMorePage = ({ onBack }) => {
       {/* Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <button 
             onClick={onBack}
             className="flex items-center gap-2 text-purple-300 hover:text-white transition-colors mb-4"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Home
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="text-sm sm:text-base">Back to Home</span>
           </button>
         </div>
 
         {/* Main Content */}
-        <div className="px-6 pb-12">
+        <div className="px-4 sm:px-6 pb-8 sm:pb-12">
           <div className="max-w-5xl mx-auto">
             {/* Title */}
-            <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 mb-6">
+            <div className="text-center mb-12 sm:mb-16">
+              <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 mb-4 sm:mb-6 px-2">
                 Understanding Space Weather
               </h1>
-              <p className="text-xl md:text-2xl text-purple-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl lg:text-2xl text-purple-200 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
                 Discover the invisible forces that connect our Sun to Earth and affect our daily lives
               </p>
             </div>
 
             {/* Content Sections */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
               {/* What is a Solar Flare? */}
-              <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 border border-orange-500/30 shadow-2xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-white rounded-full animate-pulse"></div>
+              <div className="bg-slate-900/40 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-orange-500/30 shadow-2xl">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-4 h-4 sm:w-6 sm:h-6 bg-white rounded-full animate-pulse"></div>
                   </div>
-                  <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
                     What is a Solar Flare?
                   </h2>
                 </div>
-                <div className="text-purple-100 space-y-4 leading-relaxed">
+                <div className="text-purple-100 space-y-3 sm:space-y-4 leading-relaxed text-sm sm:text-base">
                   <p>
                     A solar flare is like the Sun having a massive sneeze! It's a sudden release of electromagnetic energy from the Sun's surface that can be millions of times more powerful than an atomic bomb.
                   </p>
@@ -81,16 +81,16 @@ const LearnMorePage = ({ onBack }) => {
               </div>
 
               {/* What is Space Weather? */}
-              <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 border border-purple-500/30 shadow-2xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-white animate-pulse" />
+              <div className="bg-slate-900/40 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-purple-500/30 shadow-2xl">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-white animate-pulse" />
                   </div>
-                  <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
                     What is Space Weather?
                   </h2>
                 </div>
-                <div className="text-purple-100 space-y-4 leading-relaxed">
+                <div className="text-purple-100 space-y-3 sm:space-y-4 leading-relaxed text-sm sm:text-base">
                   <p>
                     Space weather is like regular weather, but instead of rain and wind, it's made of invisible particles and magnetic fields flowing through space from the Sun.
                   </p>
@@ -105,109 +105,109 @@ const LearnMorePage = ({ onBack }) => {
             </div>
 
             {/* How Solar Flares Affect Earth */}
-            <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-blue-500/30 shadow-2xl mb-12">
-              <div className="text-center mb-10">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-green-500 rounded-full flex items-center justify-center">
-                    <div className="w-8 h-8 bg-blue-500 rounded-full relative">
-                      <div className="w-4 h-4 bg-green-400 rounded-full absolute top-1 left-1"></div>
+            <div className="bg-slate-900/40 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 border border-blue-500/30 shadow-2xl mb-8 sm:mb-12">
+              <div className="text-center mb-8 sm:mb-10">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-400 to-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-full relative">
+                      <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-400 rounded-full absolute top-1 left-1"></div>
                     </div>
                   </div>
-                  <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-500">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-500 text-center">
                     How Solar Flares Affect Earth's Atmosphere
                   </h2>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <div className="text-2xl">🛡️</div>
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center">
+                    <div className="text-xl sm:text-2xl">🛡️</div>
                   </div>
-                  <h3 className="text-xl font-bold text-green-400 mb-2">Earth's Magnetic Shield</h3>
-                  <p className="text-purple-100 text-sm leading-relaxed">
+                  <h3 className="text-lg sm:text-xl font-bold text-green-400 mb-2">Earth's Magnetic Shield</h3>
+                  <p className="text-purple-100 text-xs sm:text-sm leading-relaxed">
                     Our planet has an invisible magnetic field that acts like a protective bubble, deflecting most harmful solar particles away from us.
                   </p>
                 </div>
 
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <div className="text-2xl">🌈</div>
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center">
+                    <div className="text-xl sm:text-2xl">🌈</div>
                   </div>
-                  <h3 className="text-xl font-bold text-pink-400 mb-2">Beautiful Auroras</h3>
-                  <p className="text-purple-100 text-sm leading-relaxed">
+                  <h3 className="text-lg sm:text-xl font-bold text-pink-400 mb-2">Beautiful Auroras</h3>
+                  <p className="text-purple-100 text-xs sm:text-sm leading-relaxed">
                     When solar particles do get through, they collide with gases in our atmosphere, creating the stunning light shows we call auroras.
                   </p>
                 </div>
 
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <div className="text-2xl">📡</div>
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center">
+                    <div className="text-xl sm:text-2xl">📡</div>
                   </div>
-                  <h3 className="text-xl font-bold text-yellow-400 mb-2">Technology Effects</h3>
-                  <p className="text-purple-100 text-sm leading-relaxed">
+                  <h3 className="text-lg sm:text-xl font-bold text-yellow-400 mb-2">Technology Effects</h3>
+                  <p className="text-purple-100 text-xs sm:text-sm leading-relaxed">
                     Solar storms can temporarily disrupt radio signals, GPS navigation, and even cause power outages in extreme cases.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-blue-900/30 rounded-2xl p-6 border border-blue-400/20">
-                <h3 className="text-2xl font-bold text-blue-400 mb-4 text-center">The Journey from Sun to Earth</h3>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+              <div className="bg-blue-900/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-blue-400/20">
+                <h3 className="text-xl sm:text-2xl font-bold text-blue-400 mb-3 sm:mb-4 text-center">The Journey from Sun to Earth</h3>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-center">
                   <div className="text-purple-100">
-                    <div className="text-3xl font-bold text-yellow-400 mb-2">8 minutes</div>
-                    <div className="text-sm">Light & X-rays reach Earth</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-yellow-400 mb-1 sm:mb-2">8 minutes</div>
+                    <div className="text-xs sm:text-sm">Light & X-rays reach Earth</div>
                   </div>
                   <div className="text-purple-100">
-                    <div className="text-3xl font-bold text-orange-400 mb-2">30 minutes</div>
-                    <div className="text-sm">High-energy particles arrive</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-orange-400 mb-1 sm:mb-2">30 minutes</div>
+                    <div className="text-xs sm:text-sm">High-energy particles arrive</div>
                   </div>
                   <div className="text-purple-100">
-                    <div className="text-3xl font-bold text-pink-400 mb-2">1-3 days</div>
-                    <div className="text-sm">Solar wind reaches Earth</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">1-3 days</div>
+                    <div className="text-xs sm:text-sm">Solar wind reaches Earth</div>
                   </div>
                   <div className="text-purple-100">
-                    <div className="text-3xl font-bold text-green-400 mb-2">Hours</div>
-                    <div className="text-sm">Auroras may be visible</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-1 sm:mb-2">Hours</div>
+                    <div className="text-xs sm:text-sm">Auroras may be visible</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Fun Facts Section */}
-            <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-pink-500/30 shadow-2xl">
-              <div className="text-center mb-10">
-                <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500 mb-4">
+            <div className="bg-slate-900/40 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 border border-pink-500/30 shadow-2xl">
+              <div className="text-center mb-8 sm:mb-10">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500 mb-3 sm:mb-4">
                   Amazing Space Weather Facts
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto rounded-full"></div>
+                <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-500 mx-auto rounded-full"></div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-pink-900/20 rounded-2xl p-6 border border-pink-400/20">
-                  <h3 className="text-xl font-bold text-pink-400 mb-3">The Carrington Event</h3>
-                  <p className="text-purple-100 leading-relaxed">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="bg-pink-900/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-pink-400/20">
+                  <h3 className="text-lg sm:text-xl font-bold text-pink-400 mb-2 sm:mb-3">The Carrington Event</h3>
+                  <p className="text-purple-100 leading-relaxed text-sm sm:text-base">
                     In 1859, the strongest solar storm in recorded history made telegraph wires spark and catch fire, but also made auroras visible as far south as the Caribbean!
                   </p>
                 </div>
 
-                <div className="bg-purple-900/20 rounded-2xl p-6 border border-purple-400/20">
-                  <h3 className="text-xl font-bold text-purple-400 mb-3">Solar Cycle</h3>
-                  <p className="text-purple-100 leading-relaxed">
+                <div className="bg-purple-900/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-purple-400/20">
+                  <h3 className="text-lg sm:text-xl font-bold text-purple-400 mb-2 sm:mb-3">Solar Cycle</h3>
+                  <p className="text-purple-100 leading-relaxed text-sm sm:text-base">
                     The Sun follows an 11-year cycle of activity. During "solar maximum," we see more flares and storms, creating more spectacular auroras on Earth.
                   </p>
                 </div>
 
-                <div className="bg-blue-900/20 rounded-2xl p-6 border border-blue-400/20">
-                  <h3 className="text-xl font-bold text-blue-400 mb-3">Speed of Solar Wind</h3>
-                  <p className="text-purple-100 leading-relaxed">
+                <div className="bg-blue-900/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-blue-400/20">
+                  <h3 className="text-lg sm:text-xl font-bold text-blue-400 mb-2 sm:mb-3">Speed of Solar Wind</h3>
+                  <p className="text-purple-100 leading-relaxed text-sm sm:text-base">
                     Solar wind normally travels at about 400 km per second, but during storms it can speed up to over 1,000 km per second!
                   </p>
                 </div>
 
-                <div className="bg-green-900/20 rounded-2xl p-6 border border-green-400/20">
-                  <h3 className="text-xl font-bold text-green-400 mb-3">Protection for Astronauts</h3>
-                  <p className="text-purple-100 leading-relaxed">
+                <div className="bg-green-900/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-green-400/20">
+                  <h3 className="text-lg sm:text-xl font-bold text-green-400 mb-2 sm:mb-3">Protection for Astronauts</h3>
+                  <p className="text-purple-100 leading-relaxed text-sm sm:text-base">
                     The International Space Station has special shielded areas where astronauts can take shelter during major solar storms.
                   </p>
                 </div>
@@ -227,7 +227,7 @@ const LearnMorePage = ({ onBack }) => {
   );
 };
 
-// Solar Flare Story Page Component
+// Solar Flare Story Page Component - Made responsive
 const SolarFlareStoryPage = ({ onBack }) => {
   const [currentChapter, setCurrentChapter] = useState(0);
 
@@ -270,7 +270,7 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
     }
   ];
 
-  // Enhanced Solar Flare Animation for Story Page
+  // Enhanced Solar Flare Animation for Story Page - Made responsive
   const SolarFlareAnimation = () => {
     const [animationPhase, setAnimationPhase] = useState(0);
 
@@ -285,10 +285,10 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
     const particles = Array.from({ length: 12 }, (_, i) => i);
 
     return (
-      <div className="relative w-full h-48 md:h-64 bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950 rounded-3xl overflow-hidden border border-purple-500/30 shadow-2xl">
+      <div className="relative w-full h-32 sm:h-48 lg:h-64 bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-purple-500/30 shadow-2xl">
         {/* Stars background */}
         <div className="absolute inset-0">
-          {Array.from({ length: 30 }, (_, i) => (
+          {Array.from({ length: window.innerWidth > 768 ? 30 : 15 }, (_, i) => (
             <div
               key={i}
               className="absolute w-1 h-1 bg-white rounded-full opacity-60"
@@ -302,12 +302,12 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
         </div>
 
         {/* Sun */}
-        <div className="absolute left-8 top-1/2 -translate-y-1/2">
+        <div className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2">
           <div 
-            className="w-20 h-20 md:w-24 md:h-24 rounded-full relative overflow-hidden"
+            className="w-12 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full relative overflow-hidden"
             style={{
               background: 'radial-gradient(circle, #FFD700, #FF8C00, #FF4500)',
-              boxShadow: '0 0 40px #FF8C00, 0 0 80px #FF4500',
+              boxShadow: '0 0 20px #FF8C00, 0 0 40px #FF4500',
               animation: 'pulse 2s ease-in-out infinite',
             }}
           >
@@ -320,17 +320,17 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
             />
             
             {animationPhase === 0 && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-2 h-10 bg-gradient-to-t from-orange-500 to-yellow-300 rounded-full animate-pulse" />
+              <div className="absolute -top-2 sm:-top-3 left-1/2 -translate-x-1/2 w-1 sm:w-2 h-6 sm:h-10 bg-gradient-to-t from-orange-500 to-yellow-300 rounded-full animate-pulse" />
             )}
           </div>
         </div>
 
         {/* Solar flare particles */}
-        <div className="absolute left-32 top-1/2 -translate-y-1/2 w-full h-full">
+        <div className="absolute left-16 sm:left-32 top-1/2 -translate-y-1/2 w-full h-full">
           {particles.map((particle, i) => (
             <div
               key={particle}
-              className="absolute w-3 h-3 rounded-full"
+              className="absolute w-2 h-2 sm:w-3 sm:h-3 rounded-full"
               style={{
                 background: `radial-gradient(circle, ${['#FFD700', '#FF8C00', '#FF4500', '#FFB347'][i % 4]}, transparent)`,
                 left: `${animationPhase * 20}%`,
@@ -346,24 +346,24 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
         {/* Energy wave */}
         {animationPhase >= 1 && (
           <div
-            className="absolute top-1/2 -translate-y-1/2 h-2 rounded-full"
+            className="absolute top-1/2 -translate-y-1/2 h-1 sm:h-2 rounded-full"
             style={{
-              left: '32px',
+              left: '16px',
               width: `${(animationPhase - 1) * 25}%`,
               background: 'linear-gradient(90deg, #FFD700, #9D4EDD, #00F5FF)',
-              boxShadow: '0 0 15px #9D4EDD',
+              boxShadow: '0 0 10px #9D4EDD',
               animation: 'energyPulse 0.5s ease-in-out infinite',
             }}
           />
         )}
 
         {/* Earth */}
-        <div className="absolute right-8 top-1/2 -translate-y-1/2">
+        <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2">
           <div 
-            className="w-16 h-16 md:w-20 md:h-20 rounded-full relative"
+            className="w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full relative"
             style={{
               background: 'conic-gradient(from 0deg, #4A90E2, #50C878, #4A90E2, #8FBC8F, #4A90E2)',
-              boxShadow: animationPhase >= 3 ? '0 0 30px #50C878, 0 0 60px #4A90E2' : 'none',
+              boxShadow: animationPhase >= 3 ? '0 0 20px #50C878, 0 0 40px #4A90E2' : 'none',
               animation: 'earthRotate 8s linear infinite',
             }}
           >
@@ -377,7 +377,7 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
             
             {animationPhase >= 3 && (
               <div 
-                className="absolute -top-3 -left-3 -right-3 -bottom-3 rounded-full"
+                className="absolute -top-2 sm:-top-3 -left-2 sm:-left-3 -right-2 sm:-right-3 -bottom-2 sm:-bottom-3 rounded-full"
                 style={{
                   background: 'radial-gradient(ellipse, transparent 60%, #00FF7F 70%, #FF69B4 80%, transparent 90%)',
                   animation: 'aurora 1.5s ease-in-out infinite',
@@ -416,7 +416,7 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
               opacity: 0.6;
             }
             100% { 
-              transform: translateX(400px) translateY(20px) scale(0.3);
+              transform: translateX(200px) translateY(10px) scale(0.3);
               opacity: 0;
             }
           }
@@ -457,13 +457,13 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-900">
         {/* Nebula effects */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 sm:w-80 h-48 sm:h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-32 sm:w-64 h-32 sm:h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
         </div>
         
         {/* Cosmic dust */}
-        {Array.from({ length: 50 }, (_, i) => (
+        {Array.from({ length: window.innerWidth > 768 ? 50 : 25 }, (_, i) => (
           <div
             key={i}
             className="absolute w-0.5 h-0.5 bg-white rounded-full opacity-40"
@@ -479,24 +479,24 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
       {/* Content */}
       <div className="relative z-10">
         {/* Header */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <button 
             onClick={onBack}
             className="flex items-center gap-2 text-purple-300 hover:text-white transition-colors mb-4"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Home
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="text-sm sm:text-base">Back to Home</span>
           </button>
         </div>
 
         {/* Animation Section */}
-        <div className="px-6 mb-12">
+        <div className="px-4 sm:px-6 mb-8 sm:mb-12">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 mb-4">
+            <div className="text-center mb-6 sm:mb-8">
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 mb-3 sm:mb-4">
                 The Solar Flare's Journey
               </h1>
-              <p className="text-xl text-purple-200 mb-8">A Cosmic Tale for Earthlings</p>
+              <p className="text-lg sm:text-xl text-purple-200 mb-6 sm:mb-8">A Cosmic Tale for Earthlings</p>
             </div>
             
             <SolarFlareAnimation />
@@ -504,24 +504,24 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
         </div>
 
         {/* Story Section */}
-        <div className="px-6 pb-12">
+        <div className="px-4 sm:px-6 pb-8 sm:pb-12">
           <div className="max-w-4xl mx-auto">
             {/* Story Header */}
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-3 bg-purple-900/30 backdrop-blur-sm rounded-full px-6 py-3 border border-purple-500/30">
-                <BookOpen className="w-6 h-6 text-yellow-400" />
-                <span className="text-lg text-purple-200">Grandma's Cosmic Tale</span>
-                <Sparkles className="w-6 h-6 text-pink-400 animate-pulse" />
+            <div className="text-center mb-8 sm:mb-12">
+              <div className="inline-flex items-center gap-3 bg-purple-900/30 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3 border border-purple-500/30">
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+                <span className="text-base sm:text-lg text-purple-200">Grandma's Cosmic Tale</span>
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400 animate-pulse" />
               </div>
             </div>
 
             {/* Chapter Navigation */}
-            <div className="flex justify-center mb-8 gap-2 flex-wrap">
+            <div className="flex justify-center mb-6 sm:mb-8 gap-2 flex-wrap px-2">
               {storyChapters.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentChapter(index)}
-                  className={`px-4 py-2 rounded-full text-sm transition-all ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm transition-all ${
                     currentChapter === index
                       ? 'bg-gradient-to-r from-yellow-400 to-pink-500 text-black font-medium'
                       : 'bg-purple-900/30 text-purple-200 hover:bg-purple-800/40 border border-purple-500/30'
@@ -533,28 +533,28 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
             </div>
 
             {/* Story Content */}
-            <div className="bg-slate-900/40 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-purple-500/20 shadow-2xl">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-400 mb-4">
+            <div className="bg-slate-900/40 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 border border-purple-500/20 shadow-2xl">
+              <div className="text-center mb-6 sm:mb-8">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-400 mb-3 sm:mb-4">
                   {storyChapters[currentChapter].title}
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-pink-500 mx-auto rounded-full"></div>
+                <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-yellow-400 to-pink-500 mx-auto rounded-full"></div>
               </div>
 
               <div className="prose prose-lg max-w-none text-purple-100 leading-relaxed">
                 {storyChapters[currentChapter].content.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="mb-6 text-lg leading-8">
+                  <p key={index} className="mb-4 sm:mb-6 text-base sm:text-lg leading-7 sm:leading-8">
                     {paragraph}
                   </p>
                 ))}
               </div>
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between items-center mt-12 pt-8 border-t border-purple-500/20">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-purple-500/20">
                 <button
                   onClick={() => setCurrentChapter(Math.max(0, currentChapter - 1))}
                   disabled={currentChapter === 0}
-                  className={`px-6 py-3 rounded-full transition-all ${
+                  className={`w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base transition-all ${
                     currentChapter === 0
                       ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white'
@@ -563,14 +563,14 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
                   Previous Chapter
                 </button>
 
-                <div className="text-purple-300 font-medium">
+                <div className="text-purple-300 font-medium text-sm sm:text-base">
                   {currentChapter + 1} of {storyChapters.length}
                 </div>
 
                 <button
                   onClick={() => setCurrentChapter(Math.min(storyChapters.length - 1, currentChapter + 1))}
                   disabled={currentChapter === storyChapters.length - 1}
-                  className={`px-6 py-3 rounded-full transition-all ${
+                  className={`w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base transition-all ${
                     currentChapter === storyChapters.length - 1
                       ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-pink-600 to-yellow-500 hover:from-pink-500 hover:to-yellow-400 text-white'
@@ -594,7 +594,7 @@ And so ends our tale of the solar flare's journey, dear one. A story of connecti
   );
 };
 
-// Solar Flare Animation Component for Preview
+// Solar Flare Animation Component for Preview - Made responsive
 const SolarFlarePreview = () => {
   const [animationPhase, setAnimationPhase] = useState(0);
 
@@ -607,10 +607,10 @@ const SolarFlarePreview = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-32 bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950 rounded-3xl overflow-hidden border border-purple-500/30">
+    <div className="relative w-full h-24 sm:h-32 bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950 rounded-2xl sm:rounded-3xl overflow-hidden border border-purple-500/30">
       {/* Stars background */}
       <div className="absolute inset-0">
-        {Array.from({ length: 20 }, (_, i) => (
+        {Array.from({ length: window.innerWidth > 768 ? 20 : 10 }, (_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full opacity-60"
@@ -624,12 +624,12 @@ const SolarFlarePreview = () => {
       </div>
 
       {/* Sun */}
-      <div className="absolute left-8 top-1/2 -translate-y-1/2">
+      <div className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2">
         <div 
-          className="w-16 h-16 rounded-full relative overflow-hidden"
+          className="w-10 h-10 sm:w-16 sm:h-16 rounded-full relative overflow-hidden"
           style={{
             background: 'radial-gradient(circle, #FFD700, #FF8C00, #FF4500)',
-            boxShadow: '0 0 30px #FF8C00, 0 0 60px #FF4500',
+            boxShadow: '0 0 15px #FF8C00, 0 0 30px #FF4500',
             animation: 'pulse 2s ease-in-out infinite',
           }}
         >
@@ -644,13 +644,13 @@ const SolarFlarePreview = () => {
       </div>
 
       {/* Energy line with animation phases */}
-      <div className="absolute left-24 top-1/2 -translate-y-1/2 flex items-center gap-4 w-2/3">
-        <div className="w-4 h-4 bg-orange-400 rounded-full animate-pulse" />
+      <div className="absolute left-14 sm:left-24 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-4 w-2/3">
+        <div className="w-2 h-2 sm:w-4 sm:h-4 bg-orange-400 rounded-full animate-pulse" />
         <div 
           className="flex-1 h-0.5 bg-gradient-to-r from-orange-400 via-purple-500 to-blue-400 rounded-full"
           style={{ opacity: animationPhase >= 1 ? 0.8 : 0.3 }}
         />
-        <Zap className={`w-6 h-6 text-blue-400 ${animationPhase >= 2 ? 'animate-bounce' : ''}`} />
+        <Zap className={`w-4 h-4 sm:w-6 sm:h-6 text-blue-400 ${animationPhase >= 2 ? 'animate-bounce' : ''}`} />
         <div 
           className="flex-1 h-0.5 bg-gradient-to-r from-blue-400 to-green-400 rounded-full"
           style={{ opacity: animationPhase >= 2 ? 0.8 : 0.3 }}
@@ -658,12 +658,12 @@ const SolarFlarePreview = () => {
       </div>
 
       {/* Earth */}
-      <div className="absolute right-8 top-1/2 -translate-y-1/2">
+      <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2">
         <div 
-          className="w-12 h-12 rounded-full relative"
+          className="w-8 h-8 sm:w-12 sm:h-12 rounded-full relative"
           style={{
             background: 'conic-gradient(from 0deg, #4A90E2, #50C878, #4A90E2, #8FBC8F, #4A90E2)',
-            boxShadow: animationPhase >= 3 ? '0 0 20px #50C878' : 'none',
+            boxShadow: animationPhase >= 3 ? '0 0 15px #50C878' : 'none',
             animation: 'earthRotate 8s linear infinite',
           }}
         >
@@ -673,7 +673,7 @@ const SolarFlarePreview = () => {
               background: 'radial-gradient(circle, transparent 70%, #87CEEB 85%, transparent 100%)',
             }}
           />
-          <div className="w-3 h-3 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          <div className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
         </div>
       </div>
 
@@ -727,7 +727,7 @@ const Button = ({ children, size = "default", variant = "default", className = "
   );
 };
 
-// Main Hero Section Component
+// Main Hero Section Component - Made responsive
 const HeroSection = () => {
   const [showStory, setShowStory] = useState(false);
   const [showLearnMore, setShowLearnMore] = useState(false);
@@ -756,28 +756,28 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <div className="mb-8">
-          <h1 className="font-bold text-6xl md:text-8xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-300 drop-shadow-lg">
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="font-bold text-4xl sm:text-6xl lg:text-8xl mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-300 drop-shadow-lg">
             Stellar Stories
           </h1>
-          <h2 className="font-normal text-2xl md:text-4xl mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+          <h2 className="font-normal text-lg sm:text-2xl lg:text-4xl mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
             Space Through the Eyes of Earthlings
           </h2>
         </div>
 
-        <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
           Join our lively solar flare friend on an incredible journey from the Sun to Earth, 
           discovering how space weather affects everyone from farmers to astronauts!
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
           <Button 
             size="lg"
             onClick={() => setShowStory(true)}
-            className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-400 hover:to-yellow-300 text-black font-medium px-8 py-4 rounded-2xl text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-400 hover:to-yellow-300 text-black font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
-            <Play className="w-6 h-6 mr-2" />
+            <Play className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
             Start the Adventure
           </Button>
           
@@ -785,18 +785,18 @@ const HeroSection = () => {
             variant="outline"
             size="lg"
             onClick={() => setShowLearnMore(true)}
-            className="border-2 border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-black font-medium px-8 py-4 rounded-2xl text-lg transition-all duration-300"
+            className="w-full sm:w-auto border-2 border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-black font-medium px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg transition-all duration-300"
           >
-            <BookOpen className="w-6 h-6 mr-2" />
+            <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
             Learn More
           </Button>
         </div>
 
         {/* Mini Animation Preview */}
-        <div className="mt-16 flex justify-center">
-          <div className="bg-black/30 backdrop-blur-sm rounded-3xl p-6 border border-purple-500/30 shadow-2xl">
+        <div className="mt-12 sm:mt-16 flex justify-center">
+          <div className="bg-black/30 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-purple-500/30 shadow-2xl max-w-lg w-full">
             <SolarFlarePreview />
-            <p className="text-sm text-gray-300 mt-4 font-medium">
+            <p className="text-xs sm:text-sm text-gray-300 mt-3 sm:mt-4 font-medium">
               Watch the solar flare's journey across space
             </p>
           </div>

@@ -147,7 +147,7 @@ const stories = [
   }
 ];
 
-// Solar Flare Simulation Component
+// Solar Flare Simulation Component - Made Responsive
 const SolarFlareSimulation = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [particles, setParticles] = useState([]);
@@ -260,12 +260,12 @@ const SolarFlareSimulation = () => {
 
   return (
     <div className="w-full">
-      {/* Control Buttons */}
-      <div className="flex justify-center gap-4 mb-6">
+      {/* Control Buttons - Made responsive */}
+      <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
         <button
           onClick={startSimulation}
           disabled={isRunning}
-          className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+          className={`w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all ${
             isRunning 
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
               : 'bg-solar-orange text-white hover:bg-solar-orange/80 shadow-lg hover:shadow-xl'
@@ -276,7 +276,7 @@ const SolarFlareSimulation = () => {
         <button
           onClick={stopSimulation}
           disabled={!isRunning}
-          className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+          className={`w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all ${
             !isRunning 
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
               : 'bg-red-500 text-white hover:bg-red-600 shadow-lg hover:shadow-xl'
@@ -284,19 +284,31 @@ const SolarFlareSimulation = () => {
         >
           Stop Simulation
         </button>
+        {/* Toggle Labels Button - Mobile friendly */}
+        <button
+          onClick={() => setShowLabels(!showLabels)}
+          className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base bg-blue-500 text-white hover:bg-blue-600 transition-all"
+        >
+          {showLabels ? 'Hide Labels' : 'Show Labels'}
+        </button>
       </div>
 
-      {/* Simulation Canvas */}
+      {/* Simulation Canvas - Made more responsive */}
       <div 
         ref={containerRef}
-        className="relative aspect-video bg-gradient-to-r from-black via-purple-900/20 to-blue-900/20 rounded-2xl overflow-hidden border-2 border-gray-300"
-        style={{ minHeight: '400px' }}
+        className="relative w-full bg-gradient-to-r from-black via-purple-900/20 to-blue-900/20 rounded-2xl overflow-hidden border-2 border-gray-300"
+        style={{ 
+          aspectRatio: '16/9',
+          minHeight: '250px',
+          maxHeight: '500px'
+        }}
       >
         <svg
           width="100%"
           height="100%"
           viewBox="0 0 800 400"
           className="absolute inset-0"
+          preserveAspectRatio="xMidYMid meet"
         >
           {/* Background gradient */}
           <defs>
@@ -442,9 +454,9 @@ const SolarFlareSimulation = () => {
             </path>
           </g>
 
-          {/* Labels with arrows */}
+          {/* Labels with arrows - Only show if enabled and screen is large enough */}
           {showLabels && (
-            <g>
+            <g className="hidden sm:block">
               {/* Sun Label */}
               <g transform="translate(80, 120)">
                 <line x1="0" y1="0" x2="0" y2="40" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
@@ -491,59 +503,59 @@ const SolarFlareSimulation = () => {
           )}
         </svg>
 
-        {/* Status overlay */}
-        <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-2 rounded-lg">
-          <p className="text-sm font-semibold">
+        {/* Status overlay - Made responsive */}
+        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-black/50 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg">
+          <p className="text-xs sm:text-sm font-semibold">
             Status: {isRunning ? (
-              <span className="text-green-400">Simulation Running</span>
+              <span className="text-green-400">Running</span>
             ) : (
-              <span className="text-gray-300">Simulation Stopped</span>
+              <span className="text-gray-300">Stopped</span>
             )}
           </p>
           <p className="text-xs text-gray-300">
-            Active Particles: {particles.length}
+            Particles: {particles.length}
           </p>
           <p className="text-xs text-gray-300">
             Deflected: {particles.filter(p => p.deflected).length}
           </p>
         </div>
 
-        {/* Legend */}
-        <div className="absolute bottom-4 right-4 bg-black/50 text-white p-3 rounded-lg text-xs">
-          <div className="grid grid-cols-2 gap-2">
+        {/* Legend - Made responsive */}
+        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-black/50 text-white p-2 sm:p-3 rounded-lg text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-              <span>Solar Particles</span>
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-400 rounded-full"></div>
+              <span className="text-xs">Solar Particles</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-400 rounded-full opacity-60"></div>
-              <span>Deflected Particles</span>
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full opacity-60"></div>
+              <span className="text-xs">Deflected</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-              <span>Solar Flare</span>
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-400 rounded-full"></div>
+              <span className="text-xs">Solar Flare</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              <span>Earth</span>
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-500 rounded-full"></div>
+              <span className="text-xs">Earth</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Educational Information */}
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">What's Happening?</h4>
-        <p className="text-blue-800 text-sm mb-2">
+      {/* Educational Information - Made responsive */}
+      <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-blue-50 rounded-lg">
+        <h4 className="font-semibold text-blue-900 mb-2 text-sm sm:text-base">What's Happening?</h4>
+        <p className="text-blue-800 text-xs sm:text-sm mb-2">
           When the Sun releases a solar flare, high-energy particles travel through space as solar wind. 
           Earth's magnetosphere (our magnetic shield) deflects about 85% of these particles, protecting us from 
           harmful radiation. Watch the different outcomes:
         </p>
-        <ul className="text-blue-800 text-sm space-y-1 ml-4">
+        <ul className="text-blue-800 text-xs sm:text-sm space-y-1 ml-4">
           <li><span className="text-yellow-600 font-semibold">Yellow/Orange:</span> Solar particles traveling from the Sun</li>
           <li><span className="text-green-600 font-semibold">Green:</span> Particles deflected away by Earth's magnetic field</li>
         </ul>
-        <p className="text-blue-800 text-sm mt-2">
+        <p className="text-blue-800 text-xs sm:text-sm mt-2">
           The remaining particles that aren't deflected continue toward Earth and create beautiful auroras!
         </p>
       </div>
@@ -552,10 +564,10 @@ const SolarFlareSimulation = () => {
 };
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<"grid" | "story">("grid");
+  const [currentView, setCurrentView] = useState("grid");
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
 
-  const handleStorySelect = (storyId: string) => {
+  const handleStorySelect = (storyId) => {
     const index = stories.findIndex(story => story.id === storyId);
     setCurrentStoryIndex(index);
     setCurrentView("story");
@@ -595,52 +607,52 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation onStorySelect={handleStorySelect} />
 
-      <main className="pt-20">
+      <main className="pt-16 sm:pt-20">
         <HeroSection />
         <StoryGrid stories={stories} onStorySelect={handleStorySelect} />
 
-        {/* Mini Simulation Section */}
-        <section className="min-h-screen flex items-center justify-center px-6 py-12 bg-gradient-to-b from-background to-card/20">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-bold text-5xl mb-8 text-gray-700">
+        {/* Mini Simulation Section - Made responsive */}
+        <section className="min-h-screen flex items-center justify-center px-3 sm:px-6 py-8 sm:py-12 bg-gradient-to-b from-background to-card/20">
+          <div className="max-w-4xl mx-auto text-center w-full">
+            <h2 className="font-bold text-3xl sm:text-4xl lg:text-5xl mb-6 sm:mb-8 text-gray-700 px-2">
               Interactive Space Weather Simulation
             </h2>
 
-            <div className="bg-card/50 backdrop-blur-sm rounded-3xl p-12 border border-border mb-8">
-              <p className="text-xl text-gray-700 mb-8">
+            <div className="bg-card/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-12 border border-border mb-6 sm:mb-8">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 mb-6 sm:mb-8 px-2">
                 Experience how solar particles interact with Earth's magnetosphere in this simplified visualization.
               </p>
 
               <SolarFlareSimulation />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-primary/10 rounded-2xl p-6 border border-primary/20">
-                <h3 className="font-bold text-xl mb-3 text-primary">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 px-2">
+              <div className="bg-primary/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-primary/20">
+                <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-primary">
                   Solar Wind Speed
                 </h3>
-                <p className="text-3xl font-bold text-primary mb-2">400-800 km/s</p>
-                <p className="text-sm text-gray-700">
+                <p className="text-2xl sm:text-3xl font-bold text-primary mb-1 sm:mb-2">400-800 km/s</p>
+                <p className="text-xs sm:text-sm text-gray-700">
                   Typical speed of solar particles
                 </p>
               </div>
 
-              <div className="bg-accent/10 rounded-2xl p-6 border border-accent/20">
-                <h3 className="font-bold text-xl mb-3 text-accent">
+              <div className="bg-accent/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-accent/20">
+                <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-accent">
                   Travel Time
                 </h3>
-                <p className="text-3xl font-bold text-accent mb-2">1-3 days</p>
-                <p className="text-sm text-gray-700">
+                <p className="text-2xl sm:text-3xl font-bold text-accent mb-1 sm:mb-2">1-3 days</p>
+                <p className="text-xs sm:text-sm text-gray-700">
                   From Sun to Earth
                 </p>
               </div>
 
-              <div className="bg-aurora-green/10 rounded-2xl p-6 border border-aurora-green/20">
-                <h3 className="font-bold text-xl mb-3 text-aurora-green">
+              <div className="bg-aurora-green/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-aurora-green/20">
+                <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-aurora-green">
                   Aurora Altitude
                 </h3>
-                <p className="text-3xl font-bold text-aurora-green mb-2">80-400 km</p>
-                <p className="text-sm text-gray-700">
+                <p className="text-2xl sm:text-3xl font-bold text-aurora-green mb-1 sm:mb-2">80-400 km</p>
+                <p className="text-xs sm:text-sm text-gray-700">
                   Above Earth's surface
                 </p>
               </div>
@@ -649,51 +661,51 @@ const Index = () => {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-card/30 backdrop-blur-sm border-t border-border py-12">
-        <div className="container mx-auto px-6 text-center">
-          <h3 className="font-bold text-2xl mb-4 text-gray-700">
+      {/* Footer - Made responsive */}
+      <footer className="bg-card/30 backdrop-blur-sm border-t border-border py-8 sm:py-12">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h3 className="font-bold text-xl sm:text-2xl mb-3 sm:mb-4 text-gray-700">
             Continue Your Space Journey
           </h3>
-          <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-gray-700 mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
             This interactive storybook helps young minds understand the fascinating connection
             between our Sun and life on Earth through space weather.
           </p>
 
-          {/* Did You Know Section */}
-          <div className="mb-8">
-            <h4 className="font-bold text-xl mb-6 text-gray-700">
+          {/* Did You Know Section - Made responsive */}
+          <div className="mb-6 sm:mb-8">
+            <h4 className="font-bold text-lg sm:text-xl mb-4 sm:mb-6 text-gray-700">
               Did You Know?
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <div className="bg-solar-orange/10 rounded-2xl p-6 border border-solar-orange/20">
-                <div className="text-3xl mb-3">☀️</div>
-                <h5 className="font-semibold text-lg text-solar-orange mb-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto px-2">
+              <div className="bg-solar-orange/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-solar-orange/20">
+                <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">☀️</div>
+                <h5 className="font-semibold text-base sm:text-lg text-solar-orange mb-2">
                   The Sun's 11-Year Cycle
                 </h5>
-                <p className="text-gray-700 text-sm">
+                <p className="text-gray-700 text-xs sm:text-sm">
                   Our Sun goes through an 11-year cycle where it becomes more and less active. 
                   During solar maximum, we see more solar flares and beautiful auroras on Earth!
                 </p>
               </div>
 
-              <div className="bg-aurora-green/10 rounded-2xl p-6 border border-aurora-green/20">
-                <div className="text-3xl mb-3">🌌</div>
-                <h5 className="font-semibold text-lg text-aurora-green mb-2">
+              <div className="bg-aurora-green/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-aurora-green/20">
+                <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">🌌</div>
+                <h5 className="font-semibold text-base sm:text-lg text-aurora-green mb-2">
                   Auroras on Other Planets
                 </h5>
-                <p className="text-gray-700 text-sm">
+                <p className="text-gray-700 text-xs sm:text-sm">
                   Jupiter, Saturn, and even Mars have their own auroras! Jupiter's are 1,000 times 
                   brighter than Earth's because of its super strong magnetic field.
                 </p>
               </div>
 
-              <div className="bg-stellar-blue/10 rounded-2xl p-6 border border-stellar-blue/20">
-                <div className="text-3xl mb-3">🛰️</div>
-                <h5 className="font-semibold text-lg text-stellar-blue mb-2">
+              <div className="bg-stellar-blue/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-stellar-blue/20">
+                <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">🛰️</div>
+                <h5 className="font-semibold text-base sm:text-lg text-stellar-blue mb-2">
                   Space Weather Forecasting
                 </h5>
-                <p className="text-gray-700 text-sm">
+                <p className="text-gray-700 text-xs sm:text-sm">
                   Just like regular weather, scientists can predict space weather! They use special 
                   satellites to warn astronauts and protect power grids from solar storms.
                 </p>
@@ -701,17 +713,17 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <span className="px-4 py-2 bg-primary/30 text-primary rounded-full font-medium">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 px-2">
+            <span className="px-3 sm:px-4 py-1 sm:py-2 bg-primary/30 text-primary rounded-full font-medium text-xs sm:text-sm">
               Solar Physics
             </span>
-            <span className="px-4 py-2 bg-accent/40 text-blue-600 rounded-full font-medium">
+            <span className="px-3 sm:px-4 py-1 sm:py-2 bg-accent/40 text-blue-600 rounded-full font-medium text-xs sm:text-sm">
               Space Weather
             </span>
-            <span className="px-4 py-2 bg-aurora-green/30 text-aurora-green rounded-full font-medium">
+            <span className="px-3 sm:px-4 py-1 sm:py-2 bg-aurora-green/30 text-aurora-green rounded-full font-medium text-xs sm:text-sm">
               Earth Sciences
             </span>
-            <span className="px-4 py-2 bg-cosmic-purple text-indigo rounded-full font-medium">
+            <span className="px-3 sm:px-4 py-1 sm:py-2 bg-cosmic-purple text-indigo rounded-full font-medium text-xs sm:text-sm">
               Interactive Learning
             </span>
           </div>
