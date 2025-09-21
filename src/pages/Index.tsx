@@ -454,49 +454,49 @@ const SolarFlareSimulation = () => {
             </path>
           </g>
 
-          {/* Labels with arrows - Only show if enabled and screen is large enough */}
+          {/* Labels with arrows - Show on all screen sizes, responsive sizing */}
           {showLabels && (
-            <g className="hidden sm:block">
+            <g>
               {/* Sun Label */}
               <g transform="translate(80, 120)">
-                <line x1="0" y1="0" x2="0" y2="40" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
-                <rect x="-25" y="-25" width="50" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
-                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Sun</text>
+                <line x1="0" y1="0" x2="0" y2="35" stroke="#374151" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                <rect x="-18" y="-18" width="36" height="14" fill="rgba(255, 255, 255, 0.95)" rx="3" stroke="rgba(55, 65, 81, 0.2)" strokeWidth="0.5" />
+                <text x="0" y="-8" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#374151">Sun</text>
               </g>
 
               {/* Solar Flare Label */}
               <g transform="translate(200, 120)">
-                <line x1="0" y1="0" x2="-80" y2="60" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
-                <rect x="-35" y="-25" width="70" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
-                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Solar Flare</text>
+                <line x1="0" y1="0" x2="-55" y2="45" stroke="#374151" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                <rect x="-30" y="-18" width="60" height="14" fill="rgba(255, 255, 255, 0.95)" rx="3" stroke="rgba(55, 65, 81, 0.2)" strokeWidth="0.5" />
+                <text x="0" y="-8" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#374151">Solar Flare</text>
               </g>
 
               {/* Solar Wind Label */}
-              <g transform="translate(400, 100)">
-                <line x1="0" y1="0" x2="0" y2="80" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
-                <rect x="-35" y="-25" width="70" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
-                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Solar Wind</text>
+              <g transform="translate(400, 105)">
+                <line x1="0" y1="0" x2="0" y2="65" stroke="#374151" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                <rect x="-30" y="-18" width="60" height="14" fill="rgba(255, 255, 255, 0.95)" rx="3" stroke="rgba(55, 65, 81, 0.2)" strokeWidth="0.5" />
+                <text x="0" y="-8" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#374151">Solar Wind</text>
               </g>
 
               {/* Magnetosphere Label */}
-              <g transform="translate(650, 120)">
-                <line x1="0" y1="0" x2="0" y2="40" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
-                <rect x="-45" y="-25" width="90" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
-                <text x="0" y="-10" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Magnetosphere</text>
+              <g transform="translate(650, 125)">
+                <line x1="0" y1="0" x2="0" y2="35" stroke="#374151" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                <rect x="-40" y="-18" width="80" height="14" fill="rgba(255, 255, 255, 0.95)" rx="3" stroke="rgba(55, 65, 81, 0.2)" strokeWidth="0.5" />
+                <text x="0" y="-8" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#374151">Magnetosphere</text>
               </g>
 
               {/* Earth Label */}
-              <g transform="translate(650, 320)">
-                <line x1="0" y1="0" x2="0" y2="-70" stroke="#374151" strokeWidth="2" markerEnd="url(#arrowhead)" />
-                <rect x="-25" y="5" width="50" height="20" fill="rgba(255, 255, 255, 0.9)" rx="5" />
-                <text x="0" y="20" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#374151">Earth</text>
+              <g transform="translate(650, 315)">
+                <line x1="0" y1="0" x2="0" y2="-55" stroke="#374151" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                <rect x="-18" y="5" width="36" height="14" fill="rgba(255, 255, 255, 0.95)" rx="3" stroke="rgba(55, 65, 81, 0.2)" strokeWidth="0.5" />
+                <text x="0" y="15" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#374151">Earth</text>
               </g>
 
               {/* Arrow marker definition */}
               <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-                        refX="9" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+                <marker id="arrowhead" markerWidth="8" markerHeight="6" 
+                        refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#374151" />
                 </marker>
               </defs>
             </g>
